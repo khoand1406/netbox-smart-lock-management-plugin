@@ -1,0 +1,70 @@
+<div class="modal-header">
+    <h5 class="modal-title">Upload Images</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+
+<div class="modal-body">{% include 'upload_file/upload.html' %}</div>
+<input type="hidden" id="csrf-token" value="{{ csrf_token }}">
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        Cancel
+    </button>
+
+    <button type="button" class="btn btn-primary" id="btnSaveAttachments">
+        <i class="mdi mdi-content-save-outline"></i>
+        Save
+    </button>
+</div>
+<script>
+    (function () {
+        setTimeout(function () {
+            document.dispatchEvent(new Event("DOMContentLoaded"));
+        }, 100);
+        document.addEventListener("click", async function (e) {
+            if (!e.target.closest("#btnSaveAttachments")) {
+                return;
+            }
+            try {
+                updateAllFilesInput();
+                const allFiles =
+                    document.getElementById("all-files-input").value;
+                const modelName = document.getElementById(
+                    "incident-model-name",
+                ).value;
+                const objectId =
+                    document.getElementById("incident-object-id").value;
+                const formData = new FormData();
+                formData.append("all_files", allFiles);
+                formData.append("model_name", modelName.toLowerCase());
+                formData.append("object_id", objectId);
+                const csrf_token= document.getElementById('csrf-token')?.value
+                const response = await fetch(
+                    "{% url 'plugins:smart_lock_management_plugin:smartlock_save_attachments' %}",
+                    {
+                        method: "POST",
+                        body: formData,
+                        headers: {
+                            "X-CSRFToken": csrf_token,
+                        },
+                    },
+                );
+                const result = await response.json();
+                if (result.success) {
+                    
+                    const modalElement = document.querySelector(".modal.show");
+                    const modal = bootstrap.Modal.getInstance(modalElement);
+                    if (modal) {
+                        modal.hide();
+                    }
+
+                    window.location.reload();
+                } else {
+                    alert(result.errors.join("\n"));
+                }
+            } catch (error) {
+                console.error(error);
+                alert("Failed to save attachments.");
+            }
+        });
+    })();
+</script>

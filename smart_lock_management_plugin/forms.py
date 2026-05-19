@@ -18,7 +18,7 @@ from utilities.forms.rendering import FieldSet
 from utilities.forms.fields.dynamic import DynamicModelMultipleChoiceField
 from utilities.forms.fields.dynamic import DynamicModelChoiceField
 from .models import RackFaceChoices, SmartLock
-from .ui.widgets import MultipleFileInput, MultipleFileField
+from .ui.widgets import CustomUploadWidget, MultipleFileInput, MultipleFileField
 
 
 class SmartLockForm(NetBoxModelForm):
@@ -29,13 +29,13 @@ class SmartLockForm(NetBoxModelForm):
         validators=[
             FileExtensionValidator(["jpg", "jpeg", "png"])
         ],
-        widget=MultipleFileInput(
-            attrs={
-                "multiple": True,
-                "accept": ".jpg,.jpeg,.png,image/jpeg,image/png",
-            }
-        ),
+        widget=CustomUploadWidget(
+           attrs= {
+               "multiple": True
+           }
+        )
     )
+    
     
     region = DynamicModelChoiceField(
         queryset=Region.objects.all(),
@@ -115,7 +115,6 @@ class SmartLockForm(NetBoxModelForm):
             "code",
             "status",
             "description",
-            "attachment",
             "device_type",
             "manufacturer",
             "model",
@@ -136,8 +135,8 @@ class SmartLockForm(NetBoxModelForm):
             "code":"Code",
             "status":"Status",
             "description":"Description",
-            "attachment":"Attachment",
             "device_type":"Device Type",
+            "attachment":"Attachment",
             "manufacturer":"Manufacturer",
             "model":"Model",
             "serial":"Serial",
@@ -208,16 +207,6 @@ class SmartLockForm(NetBoxModelForm):
             
 class SmartLockEditForm(NetBoxModelForm):
    
-    image_attachment= forms.ModelMultipleChoiceField(
-        queryset=ImageAttachment.objects.all(),
-        required= False,
-        label= "Attachments",
-        help_text=(
-            "Select existings attachment to update."
-            "Leave blank to create new"
-        ),
-    )
-    
     attachment = MultipleFileField(
         required=False,
         label="New Attachments",
@@ -227,10 +216,9 @@ class SmartLockEditForm(NetBoxModelForm):
                 allowed_extensions=["jpg", "jpeg", "png"]
             )
         ],
-        widget=MultipleFileInput(
+        widget=CustomUploadWidget(
             attrs={
-                "multiple": True,
-                "accept": ".jpg,.jpeg,.png,image/jpeg,image/png",
+                "multiple": True
             }
         ),
     )
@@ -365,20 +353,6 @@ class SmartLockEditForm(NetBoxModelForm):
             self.fields["warranty_expiry_date"].initial= (
                 self.instance.warranty_expiry_date
             )
-            content_type= ContentType.objects.get_for_model(self.instance)
-            images = ImageAttachment.objects.filter(
-                object_type=content_type,
-                object_id=self.instance.pk
-            ).order_by("-created")
-            self.fields["image_attachment"].queryset = images
-            self.fields["image_attachment"].label_from_instance = (
-                lambda obj: (
-                    f"{obj.name or obj.image.name} "
-                    f"(ID: {obj.pk})"
-                )
-            )
-            if images.exists():
-                self.fields["image_attachment"].initial = images.first()
 
     def clean_attachment(self):
         

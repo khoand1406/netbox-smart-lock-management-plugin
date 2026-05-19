@@ -8,6 +8,8 @@ For Django REST Framework viewsets, see:
 https://www.django-rest-framework.org/api-guide/viewsets/
 """
 
+
+
 from netbox.api.viewsets import NetBoxModelViewSet
 
 from ..models import SmartLock
@@ -17,4 +19,5 @@ from .serializers import SmartLockSerializer
 class SmartLockViewSet(NetBoxModelViewSet):
     queryset = SmartLock.objects.all()
     serializer_class = SmartLockSerializer
+    
 
