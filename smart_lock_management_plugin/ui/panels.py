@@ -41,7 +41,7 @@ class CustomImageAttachentPanels(Panel):
             
             url_params= {
                 "object_id": lambda ctx: ctx["object"].pk,
-                "model_name": "SmartLock",
+                "model_name": lambda ctx: ctx["object"]._meta.model_name,
                 "return_url": lambda ctx: ctx["object"].get_absolute_url(),
             },
         )
@@ -58,5 +58,6 @@ class CustomImageAttachentPanels(Panel):
             **super().get_context(context),
             "uploaded_files": uploaded_files,
             "object": obj,
+            "model_name":obj._meta.model_name
         }
         

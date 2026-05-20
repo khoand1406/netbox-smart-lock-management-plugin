@@ -6,7 +6,7 @@
         <button
             type="button"
             class="btn btn-primary btn-sm"
-            hx-get="{% url 'plugins:smart_lock_management_plugin:uploadedfile_add' %}?object_id={{ object.pk }}&model_name=SmartLock&return_url={{ object.get_absolute_url|urlencode }}"
+            hx-get="{% url 'plugins:smart_lock_management_plugin:uploadedfile_add' %}?object_id={{ object.pk }}&model_name={{ model_name }}&return_url={{ object.get_absolute_url|urlencode }}"
             hx-target="#htmx-modal-content"
             hx-swap="innerHTML"
             data-bs-toggle="modal"
