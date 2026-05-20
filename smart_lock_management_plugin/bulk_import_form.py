@@ -10,14 +10,14 @@ from django.contrib.contenttypes.models import ContentType
 class SmartLockBulkImportCSVForm(PrimaryModelImportForm):
     status= CSVChoiceField(
         choices= SmartLockStatusChoices,
-        label= "Status",
+        label= _("Status"),
         help_text= _("Operation Status")
     )
     region = CSVModelChoiceField(
         queryset=Region.objects.all(),
         to_field_name="name",
         required=False,
-        label="Region",
+        label=_("Region"),
         help_text=_("Assigned Region")
     )
 
@@ -25,7 +25,7 @@ class SmartLockBulkImportCSVForm(PrimaryModelImportForm):
         queryset=Site.objects.all(),
         to_field_name="name",
         required=True,
-        label="Site",
+        label=_("Site"),
         help_text=_("Assigned Site")
     )
 
@@ -33,7 +33,7 @@ class SmartLockBulkImportCSVForm(PrimaryModelImportForm):
         queryset=Location.objects.all(),
         to_field_name="name",
         required=True,
-        label="Location",
+        label=_("Location"),
         help_text=_("Location")
     )
 
@@ -41,7 +41,7 @@ class SmartLockBulkImportCSVForm(PrimaryModelImportForm):
         queryset=Rack.objects.all(),
         to_field_name="name",
         required=False,
-        label="Rack",
+        label=_("Rack"),
         help_text=_("Assigned Rack")
     )
     rack_face= CSVChoiceField(
@@ -56,7 +56,7 @@ class SmartLockBulkImportCSVForm(PrimaryModelImportForm):
         ) | Tag.objects.filter(object_types__isnull=True),
         to_field_name="name",
         required=False,
-        label="Tags",
+        label=_("Tags"),
         help_text=_("Comma-separated list of tag names"),
     )
 

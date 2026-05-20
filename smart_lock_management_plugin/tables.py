@@ -10,10 +10,8 @@ https://django-tables2.readthedocs.io/
 
 import django_tables2 as tables
 from netbox.tables import NetBoxTable, columns
+from django.utils.translation import gettext_lazy as _
 from .models import SmartLock
-
-
-
 
 class SmartLockTable(NetBoxTable):
     """
@@ -21,52 +19,52 @@ class SmartLockTable(NetBoxTable):
     """
     
     name = tables.Column(
-        verbose_name='Name',
+        verbose_name=_('Name'),
         linkify=True
     )
     
     code = tables.Column(
-        verbose_name='Code'
+        verbose_name=_('Code')
     )
     
     status = columns.ChoiceFieldColumn(
         
-        verbose_name='Status'
+        verbose_name=_('Status')
     )
     
     site = tables.Column(
-        verbose_name='Site',
+        verbose_name=_('Site'),
         linkify= True
     )
     
     location = tables.Column(
-        verbose_name='Location',
+        verbose_name=_('Location'),
         linkify=True
     )
     
     rack = tables.Column(
-        verbose_name='Rack',
+        verbose_name=_('Rack'),
         linkify=True
     )
     
     manufacturer = tables.Column(
-        verbose_name='Manufacturer'
+        verbose_name=_('Manufacturer')
     )
     
     device_type = tables.Column(
-        verbose_name='Device Type'
+        verbose_name=_('Device Type')
     )
     
     created = columns.DateTimeColumn(
-    verbose_name="Created",
+    verbose_name=_("Created"),
     )
     
     created_by = tables.Column(
-        verbose_name='Created By'
+        verbose_name=_('Created By')
     )
 
     last_updated = tables.DateTimeColumn(
-    verbose_name="Last Updated",
+    verbose_name=_("Last Updated"),
     format="Y-m-d H:i:s"
     )
     

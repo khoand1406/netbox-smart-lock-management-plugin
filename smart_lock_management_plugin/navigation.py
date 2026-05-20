@@ -7,24 +7,24 @@ https://docs.netbox.dev/en/stable/plugins/development/navigation/
 
 
 from netbox.plugins.navigation import PluginMenu, PluginMenuButton, PluginMenuItem
-
+from django.utils.translation import gettext_lazy as _
 
 menu = PluginMenu(
-    label="Physical Security Devices",
+    label=_("Physical Security Devices"),
     groups=(
         (
-            "Device Management",
+            _("Device Management"),
             (
                 PluginMenuItem(
                     link="plugins:smart_lock_management_plugin:smartlock_list",
-                    link_text="Smart Lock Management",
+                    link_text=_("Smart Lock Management"),
                     permissions=[
                         "smart_lock_management_plugin.view_smartlock"
                     ],
                     buttons=(
                         PluginMenuButton(
                             link="plugins:smart_lock_management_plugin:smartlock_add",
-                            title="Add",
+                            title=_("Add"),
                             icon_class="mdi mdi-plus-thick",
                             permissions=[
                                 "smart_lock_management_plugin.add_smartlock"

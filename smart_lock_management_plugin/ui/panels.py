@@ -5,34 +5,29 @@ from netbox.ui import attrs, panels, actions
 from django.contrib.contenttypes.models import ContentType
 from upload_file_plugin.models import UploadedFile
 class SmartLockPanel(panels.ObjectAttributesPanel):
-    """
-    Panel shows detail infomation of Smart Lock object
-    """
-    name = "Detail Information"
-    
-    slug= "smartlock_details"
-    
-    name_attr= attrs.TextAttr("name")
-    code= attrs.TextAttr("code")
-    status= attrs.ChoiceAttr("status")
-    description= attrs.TextAttr("description")
-    device_type= attrs.TextAttr("device_type")
-    manufacturer= attrs.TextAttr("manufacturer")
-    model= attrs.TextAttr("manufacturer")
-    serial= attrs.TextAttr("serial")
-    region= attrs.RelatedObjectAttr("region", linkify=True)
-    site= attrs.RelatedObjectAttr("site", linkify=True)
-    location= attrs.RelatedObjectAttr("location", linkify=True)
-    rack= attrs.RelatedObjectAttr("rack", linkify=True)
-    rack_face= attrs.ChoiceAttr("rack_face")
-    
-    installation_date= attrs.TextAttr("installation_date")
-    purchase_date= attrs.TextAttr("purchase_date")
-    warranty_period_months = attrs.NumericAttr("warranty_period_months")
-    warranty_expiration_date = attrs.TextAttr("warranty_expiration_date")
-    created_by = attrs.RelatedObjectAttr("created_by", linkify=True)
-    created = attrs.DateTimeAttr("created")
-    last_updated = attrs.DateTimeAttr("last_updated")
+    name = _("Detail Information")
+    slug = "smartlock_details"
+
+    name_attr = attrs.TextAttr("name", label=_("Name"))
+    code = attrs.TextAttr("code", label=_("Code"))
+    status = attrs.ChoiceAttr("status", label=_("Status"))
+    description = attrs.TextAttr("description", label=_("Description"))
+    device_type = attrs.TextAttr("device_type", label=_("Device Type"))
+    manufacturer = attrs.TextAttr("manufacturer", label=_("Manufacturer"))
+    model = attrs.TextAttr("model", label=_("Model"))
+    serial = attrs.TextAttr("serial", label=_("Serial"))
+    region = attrs.RelatedObjectAttr("region", linkify=True, label=_("Region"))
+    site = attrs.RelatedObjectAttr("site", linkify=True, label=_("Site"))
+    location = attrs.RelatedObjectAttr("location", linkify=True, label=_("Location"))
+    rack = attrs.RelatedObjectAttr("rack", linkify=True, label=_("Rack"))
+    rack_face = attrs.ChoiceAttr("rack_face", label=_("Rack Face"))
+    installation_date = attrs.TextAttr("installation_date", label=_("Installation Date"))
+    purchase_date = attrs.TextAttr("purchase_date", label=_("Purchase Date"))
+    warranty_period_months = attrs.NumericAttr("warranty_period_months", label=_("Warranty Period (months)"))
+    warranty_expiration_date = attrs.TextAttr("warranty_expiration_date", label=_("Warranty Expires Date"))
+    created_by = attrs.RelatedObjectAttr("created_by", linkify=True, label=_("Created By"))
+    created = attrs.DateTimeAttr("created", label=_("Created"))
+    last_updated = attrs.DateTimeAttr("last_updated", label=_("Last Updated"))
     
 class CustomImageAttachentPanels(Panel):
     title = _("Attachments")

@@ -41,6 +41,7 @@ from .bulk_edit_form import SmartLockBulkEditForm
 from .bulk_import_form import SmartLockBulkImportCSVForm
 from upload_file_plugin.models import UploadedFile
 from upload_file_plugin.views import SaveFilesView
+from django.utils.translation import gettext_lazy as _
 
 from . import filtersets, forms, models, tables
 
@@ -88,7 +89,7 @@ class SmartLockImageView(generic.ObjectView):
     template_name = 'smart_lock_management_plugin/smartlock_attachments.html'
 
     tab = ViewTab(
-        label='Attachments',
+        label=_('Attachments'),
         badge=get_image_count,
         weight=500
     )

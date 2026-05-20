@@ -41,14 +41,14 @@ class SmartLockForm(NetBoxModelForm):
     region = DynamicModelChoiceField(
         queryset=Region.objects.all(),
         required=False,
-        label="Region",
+        label=_("Region"),
     )
 
    
     site = DynamicModelChoiceField(
         queryset=Site.objects.all(),
         required=True,
-        label="Site",
+        label=_("Site"),
         query_params={
         "region_id": "$region",
     },
@@ -58,7 +58,7 @@ class SmartLockForm(NetBoxModelForm):
     location = DynamicModelChoiceField(
         queryset=Location.objects.all(),
         required=True,
-        label="Location",
+        label=_("Location"),
         query_params={
         "site_id": "$site",
     },
@@ -68,7 +68,7 @@ class SmartLockForm(NetBoxModelForm):
     rack = DynamicModelChoiceField(
         queryset=Rack.objects.all(),
         required=False,
-        label="Rack",
+        label=_("Rack"),
         query_params={
         "location_id": "$location",
     },
@@ -77,7 +77,7 @@ class SmartLockForm(NetBoxModelForm):
     
     installation_date = forms.DateField(
         required=False,
-        label="Installation Date",
+        label=_("Installation Date"),
         widget=forms.DateInput(
             attrs={
                 "type": "date",
@@ -88,7 +88,7 @@ class SmartLockForm(NetBoxModelForm):
 
     purchase_date = forms.DateField(
         required=False,
-        label="Purchase Date",
+        label=_("Purchase Date"),
         widget=forms.DateInput(
             attrs={
                 "type": "date",
@@ -99,7 +99,7 @@ class SmartLockForm(NetBoxModelForm):
 
     warranty_expiration_date = forms.DateField(
         required=False,
-        label="Warranty Expiration Date",
+        label=_("Warranty Expires Date"),
         disabled=True,
         widget=forms.DateInput(
             attrs={
@@ -132,33 +132,33 @@ class SmartLockForm(NetBoxModelForm):
             
         )
         labels = {
-            "name":"Name",
-            "code":"Code",
-            "status":"Status",
-            "description":"Description",
-            "device_type":"Device Type",
-            "attachment":"Attachment",
-            "manufacturer":"Manufacturer",
-            "model":"Model",
-            "serial":"Serial",
-            "installation_date":"Installation Date",
-            "purchase_date":"Purchase Date",
-            "warranty_period": "Warranty Period",
-            "region":"Region",
-            "site":"Site",
-            "location":"Location",
-            "rack":"Rack",
-            "rack_face":"Rack Face",
-            "tags":"Tags"
+            "name":_("Name"),
+            "code":_("Code"),
+            "status":_("Status"),
+            "description":_("Description"),
+            "device_type":_("Device Type"),
+            "attachment":_("Attachment"),
+            "manufacturer":_("Manufacturer"),
+            "model":_("Model"),
+            "serial":_("Serial"),
+            "installation_date":_("Installation Date"),
+            "purchase_date":_("Purchase Date"),
+            "warranty_period": _("Warranty Period"),
+            "region":_("Region"),
+            "site":_("Site"),
+            "location":_("Location"),
+            "rack":_("Rack"),
+            "rack_face":_("Rack Face"),
+            "tags":_("Tags")
         }
         help_texts = {
-            "name": "Allow up to 100 characters.",
-            "code": "Allow up to 50 characters. Unique value.",
-            "status": "Default is Active.",
-            "description": "Allow up to 500 characters.",
-            "device_type":"Allow up to 100 characters",
-            "attachment": "Only jpg, jpeg, png allowed. Maximum size 25MB.",
-            "warranty_period_months": "Enter a positive integer (unit: months).",
+            "name": _("Allow up to 100 characters."),
+            "code": _("Allow up to 50 characters. Unique value."),
+            "status": _("Default is Active."),
+            "description": _("Allow up to 500 characters."),
+            "device_type":_("Allow up to 100 characters"),
+            "attachment": _("Only jpg, jpeg, png allowed. Maximum size 25MB."),
+            "warranty_period_months": _("Enter a positive integer (unit: months)."),
         }
     def clean_attachment(self):
         files = self.files.getlist("attachment")
@@ -210,8 +210,8 @@ class SmartLockEditForm(NetBoxModelForm):
    
     attachment = MultipleFileField(
         required=False,
-        label="New Attachments",
-        help_text="Only jpg, jpeg, png allowed. Maximum total size per file: 25MB.",
+        label=_("New Attachment"),
+        help_text=_("Only jpg, jpeg, png allowed. Maximum total size per file: 25MB."),
         validators=[
             FileExtensionValidator(
                 allowed_extensions=["jpg", "jpeg", "png"]
@@ -226,14 +226,14 @@ class SmartLockEditForm(NetBoxModelForm):
     region= DynamicModelChoiceField(
         queryset=Region.objects.all(),
         required= True,
-        label= "Region"
+        label= _("Region")
         
     )
     
     site= DynamicModelChoiceField(
         queryset=Site.objects.all(),
         required= False,
-        label="Site",
+        label=_("Site"),
         query_params={
             "region_id":"$region"
         }
@@ -241,7 +241,7 @@ class SmartLockEditForm(NetBoxModelForm):
     location= DynamicModelChoiceField(
         queryset= Location.objects.all(),
         required= False,
-        label= "Location",
+        label= _("Location"),
         query_params={
             "site_id":"$site"
         }
@@ -257,7 +257,7 @@ class SmartLockEditForm(NetBoxModelForm):
     
     installation_date = forms.DateField(
         required=False,
-        label="Installation Date",
+        label=_("Installation Date"),
         widget=forms.DateInput(
             attrs={
                 "type": "date",
@@ -268,7 +268,7 @@ class SmartLockEditForm(NetBoxModelForm):
 
     purchase_date = forms.DateField(
         required=False,
-        label="Purchase Date",
+        label=_("Purchase Date"),
         widget=forms.DateInput(
             attrs={
                 "type": "date",
@@ -279,7 +279,7 @@ class SmartLockEditForm(NetBoxModelForm):
 
     warranty_expiry_date = forms.DateField(
         required=False,
-        label="Warranty Expiration Date",
+        label=_("Warranty Expires Date"),
         disabled=True,
         widget=forms.DateInput(
             attrs={
@@ -320,32 +320,13 @@ class SmartLockEditForm(NetBoxModelForm):
             "tags"
             
         )
-        labels= {
-            "name":"Name",
-            "code":"Code",
-            "status":"Status",
-            "descripiiton":"Description",
-            "device_type":"Device Type",
-            "manufacturer":"Manufacturer",
-            "model":"Model",
-            "serial":"Serial",
-            "installation_date":"Installation Date",
-            "purchase_date":"Purchase Date",
-            "region":"Region",
-            "site":"Site",
-            "location":"Location",
-            "rack":"Rack",
-            "rack_face": "Rack Face",
-            "tags":"Tags"
-            
-        }
         help_texts={
-            "name": "Maximum 100 characters.",
-            "code": "Maximum 50 characters and must be unique.",
-            "description": "Maximum 500 characters.",
-            "attachment": "Upload a new attachment to replace the selected one. Allowed file types: JPG, JPEG, PNG. Maximum size: 25MB.",
-            "device_type": "Maximum 100 characters.",
-            "warranty_period_months": "Enter a positive integer (unit: months).",
+            "name": _("Maximum 100 characters."),
+            "code": _("Maximum 50 characters and must be unique."),
+            "description": _("Maximum 500 characters."),
+            "attachment": _("Upload a new attachment to replace the selected one. Allowed file types: JPG, JPEG, PNG. Maximum size: 25MB."),
+            "device_type":_("Maximum 100 characters."),
+            "warranty_period_months": _("Enter a positive integer (unit: months)."),
         }
         
     def __init__(self, *args, **kwargs):
@@ -387,10 +368,10 @@ class SmartLockFilterForm(NetBoxModelFilterSetForm):
     # Search
     q = forms.CharField(
         required=False,
-        label="Search",
+        label=_("Search"),
         widget=forms.TextInput(
             attrs={
-                "placeholder": "Search by name, code, manufacturer...",
+                "placeholder": _("Search by name, code, manufacturer..."),
             }
         ),
     )
@@ -399,20 +380,20 @@ class SmartLockFilterForm(NetBoxModelFilterSetForm):
     status = forms.MultipleChoiceField(
         required=False,
         choices=SmartLock._meta.get_field("status").choices,
-        label="Status",
+        label=_("Status"),
     )
 
     # Location Information
     region = DynamicModelMultipleChoiceField(
         queryset=Region.objects.all(),
         required=False,
-        label="Region",
+        label=_("Region"),
     )
 
     site = DynamicModelMultipleChoiceField(
         queryset=Site.objects.all(),
         required=False,
-        label="Site",
+        label=_("Site"),
         query_params={
             "region_id": "$region",
         },
@@ -421,7 +402,7 @@ class SmartLockFilterForm(NetBoxModelFilterSetForm):
     location = DynamicModelMultipleChoiceField(
         queryset=Location.objects.all(),
         required=False,
-        label="Location",
+        label=_("Location"),
         query_params={
             "site_id": "$site",
         },
@@ -430,7 +411,7 @@ class SmartLockFilterForm(NetBoxModelFilterSetForm):
     rack = DynamicModelMultipleChoiceField(
         queryset=Rack.objects.all(),
         required=False,
-        label="Rack",
+        label=_("Rack"),
         query_params={
             "location_id": "$location",
         },
@@ -439,7 +420,7 @@ class SmartLockFilterForm(NetBoxModelFilterSetForm):
     rack_face = forms.MultipleChoiceField(
         required=False,
         choices=RackFaceChoices,
-        label="Rack Face",
+        label=_("Rack Face"),
     )
     
     tag= TagFilterField(model= SmartLock)
@@ -447,12 +428,12 @@ class SmartLockFilterForm(NetBoxModelFilterSetForm):
     fieldsets = (
         FieldSet(
             "q",
-            name="Search",
+            name=_("Search"),
         ),
         FieldSet(
             "status",
             "tag",
-            name="Basic Information",
+            name=_("Basic Information"),
         ),
         FieldSet(
             "region",
@@ -460,7 +441,7 @@ class SmartLockFilterForm(NetBoxModelFilterSetForm):
             "location",
             "rack",
             "rack_face",
-            name="Location Information",
+            name=_("Location Information"),
         ),
     )
 

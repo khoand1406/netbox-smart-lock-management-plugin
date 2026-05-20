@@ -208,12 +208,12 @@ class SmartLock(ImageAttachmentsMixin, NetBoxModel):
         Trả về màu sắc hiển thị cho trạng thái
         """
         status_colors = {
-            SmartLockStatusChoices.STATUS_ACTIVE: _('success'),
-            SmartLockStatusChoices.STATUS_INACTIVE: _('danger'),
-            SmartLockStatusChoices.STATUS_MAINTENANCE: _('warning'),
-            SmartLockStatusChoices.STATUS_FAULT: _('secondary'),
+            SmartLockStatusChoices.STATUS_ACTIVE: 'success',
+            SmartLockStatusChoices.STATUS_INACTIVE: 'danger',
+            SmartLockStatusChoices.STATUS_MAINTENANCE: 'warning',
+            SmartLockStatusChoices.STATUS_FAULT: 'secondary',
         }
-        return status_colors.get(self.status, _('secondary'))
+        return status_colors.get(self.status, 'secondary')
     def get_absolute_url(self):
         return reverse(
             "plugins:smart_lock_management_plugin:smartlock",
