@@ -12,6 +12,7 @@ from extras.models.tags import Tag
 from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm
 from django import forms
 from django.core.validators import FileExtensionValidator
+from django.utils.translation import gettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
 from utilities.forms.fields.fields import TagFilterField
 from utilities.forms.rendering import FieldSet
@@ -24,8 +25,8 @@ from .ui.widgets import CustomUploadWidget, MultipleFileInput, MultipleFileField
 class SmartLockForm(NetBoxModelForm):
     attachment= MultipleFileField(
         required= False,
-        label= "Attachment",
-        help_text="Only jpg, jpeg, png allowed. Maximum total size per file: 25MB.",
+        label= _("Attachment"),
+        help_text=_("Only jpg, jpeg, png allowed. Maximum total size per file: 25MB."),
         validators=[
             FileExtensionValidator(["jpg", "jpeg", "png"])
         ],

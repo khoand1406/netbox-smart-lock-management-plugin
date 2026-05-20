@@ -25,75 +25,75 @@ from django.utils.translation import gettext_lazy as _
 class SmartLock(ImageAttachmentsMixin, NetBoxModel):
     name= models.CharField(
         max_length=100,
-        verbose_name="Name",
+        verbose_name=_("Name"),
         unique= True
     )
     code= models.CharField(
         max_length=100,
-        verbose_name="Code",
+        verbose_name=_("Code"),
         unique=True
     )
     status= models.CharField(
         max_length=30,
         choices=SmartLockStatusChoices,
         default= SmartLockStatusChoices.STATUS_ACTIVE,
-        verbose_name="Status"
+        verbose_name=_("Status")
     )
     description = models.TextField(
         max_length=500,
         blank=True,
-        verbose_name="Description"
+        verbose_name=_("Description")
     )
 
     device_type = models.CharField(
         max_length=100,
         blank=False,
-        verbose_name="Device Type"
+        verbose_name=_("Device Type")
     )
 
     manufacturer= models.CharField(
         max_length=200,
         blank=True,
-        verbose_name="Manufacturer"
+        verbose_name=_("Manufacturer")
     )
 
     model = models.CharField(
         max_length=100,
         blank=True,
-        verbose_name="Model"
+        verbose_name=_("Model")
     )
 
     serial = models.CharField(
         max_length=100,
         blank=True,
-        verbose_name="Serial"
+        verbose_name=_("Serial")
     )
 
     # Thông tin thời gian
     installation_date = models.DateField(
         blank=True,
         null=True,
-        verbose_name="Installation Date"
+        verbose_name=_("Installation Date")
     )
 
     purchase_date = models.DateField(
         blank=True,
         null=True,
-        verbose_name="Purchase Date"
+        verbose_name=_("Purchase Date")
     )
 
     warranty_period = models.PositiveIntegerField(
         blank=True,
         null=True,
         validators=[MinValueValidator(1)],
-        verbose_name="Warranty Period (months)"
+        verbose_name=_("Warranty Period (months)")
     )
     
     warranty_expiry_date= models.DateField(
         null=True,
         blank=True,
         editable=False,
-        verbose_name="Warranty Expires Date"
+        verbose_name=_("Warranty Expires Date")
     )
 
     # Vị trí
@@ -103,21 +103,21 @@ class SmartLock(ImageAttachmentsMixin, NetBoxModel):
         related_name="smart_locks",
         blank=True,
         null=True,
-        verbose_name="Region"
+        verbose_name=_("Region")
     )
     
     site = models.ForeignKey(
         Site,
         on_delete=models.PROTECT,
         related_name="smart_locks",
-        verbose_name="Site"
+        verbose_name=_("Site")
     )
 
     location = models.ForeignKey(
         Location,
         on_delete=models.PROTECT,
         related_name="smart_locks",
-        verbose_name="Location"
+        verbose_name=_("Location")
     )
 
     rack = models.ForeignKey(
@@ -126,14 +126,14 @@ class SmartLock(ImageAttachmentsMixin, NetBoxModel):
         related_name="smart_locks",
         blank=True,
         null=True,
-        verbose_name="Rack"
+        verbose_name=_("Rack")
     )
 
     rack_face = models.CharField(
         max_length=50,
         choices=RackFaceChoices,
         blank=True,
-        verbose_name="Rack Face"
+        verbose_name=_("Rack Face")
     )
 
     # Metadata
@@ -146,8 +146,8 @@ class SmartLock(ImageAttachmentsMixin, NetBoxModel):
 
     class Meta:
         ordering = ("-last_updated",)
-        verbose_name = "Smart Lock"
-        verbose_name_plural = "Smart Locks"
+        verbose_name = _("Smart Lock")
+        verbose_name_plural = _("Smart Locks")
 
     def __str__(self):
         return f"{self.name} ({self.code})"
@@ -208,12 +208,12 @@ class SmartLock(ImageAttachmentsMixin, NetBoxModel):
         Trả về màu sắc hiển thị cho trạng thái
         """
         status_colors = {
-            SmartLockStatusChoices.STATUS_ACTIVE: 'success',
-            SmartLockStatusChoices.STATUS_INACTIVE: 'danger',
-            SmartLockStatusChoices.STATUS_MAINTENANCE: 'warning',
-            SmartLockStatusChoices.STATUS_FAULT: 'secondary',
+            SmartLockStatusChoices.STATUS_ACTIVE: _('success'),
+            SmartLockStatusChoices.STATUS_INACTIVE: _('danger'),
+            SmartLockStatusChoices.STATUS_MAINTENANCE: _('warning'),
+            SmartLockStatusChoices.STATUS_FAULT: _('secondary'),
         }
-        return status_colors.get(self.status, 'secondary')
+        return status_colors.get(self.status, _('secondary'))
     def get_absolute_url(self):
         return reverse(
             "plugins:smart_lock_management_plugin:smartlock",
